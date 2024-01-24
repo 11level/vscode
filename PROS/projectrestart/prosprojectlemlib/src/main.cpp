@@ -1,4 +1,33 @@
 #include "main.h"
+#include "lemlib/api.hpp"
+#include "chassis.cpp"
+
+void screen() {
+    // loop forever
+    while (true) {
+        lemlib::Pose pose = chassis.getPose(); // get the current position of the robot
+        pros::lcd::print(0, "x: %f", pose.x); // print the x position
+        pros::lcd::print(1, "y: %f", pose.y); // print the y position
+        pros::lcd::print(2, "heading: %f", pose.theta); // print the heading
+        pros::delay(10);
+    }
+}
+ 
+void initialize() {
+    pros::lcd::initialize(); // initialize brain screen
+    chassis.calibrate(); // calibrate the chassis
+    pros::Task screenTask(screen); // create a task to print the position to the screen
+    chassis.setPose(0, 0, 0); // X: 0, Y: 0, Heading: 0
+    chassis.setPose(5.2, 10.333, 87); // X: 5.2, Y: 10.333, Heading: 87
+}
+
+
+/**
+ * A callback function for LLEMU's center button.
+ *
+ * When this callback is fired, it will toggle line 2 of the LCD text between
+ * "I was pressed!" and nothing.
+ */
 
 /**
  * A callback function for LLEMU's center button.
