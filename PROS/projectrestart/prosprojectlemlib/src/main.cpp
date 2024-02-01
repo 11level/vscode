@@ -12,7 +12,8 @@ void screen() {
         pros::delay(10);
     }
 }
- 
+
+
 void initialize() {
     pros::lcd::initialize(); // initialize brain screen
     chassis.calibrate(); // calibrate the chassis
@@ -63,7 +64,9 @@ void initialize() {
  * the VEX Competition Switch, following either autonomous or opcontrol. When
  * the robot is enabled, this task will exit.
  */
-void disabled() {}
+void disabled() {
+
+}
 
 /**
  * Runs after initialize(), and before autonomous when connected to the Field
@@ -74,7 +77,9 @@ void disabled() {}
  * This task will exit when the robot is enabled and autonomous or opcontrol
  * starts.
  */
-void competition_initialize() {}
+void competition_initialize() {
+
+}
 
 /**
  * Runs the user autonomous code. This function will be started in its own task
@@ -87,7 +92,12 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {}
+void autonomous() {
+
+}
+
+
+
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -116,6 +126,28 @@ void opcontrol() {
 
 		left_mtr = left;
 		right_mtr = right;
+
+//intake
+        if (master.get_digital(DIGITAL_L1)) {
+              intake = 127;
+        }
+        else {
+              intake = 0;
+        }
+        if (master.get_digital(DIGITAL_L2)) {
+              intake = -127;
+        }
+        else {
+              intake = 0;
+        }
+
+        //cata
+        if (master.get_digital(DIGITAL_R2)) {
+              cata = -127;
+        }
+        else {
+              cata = 0;
+        }
 
 		pros::delay(20);
 	}
